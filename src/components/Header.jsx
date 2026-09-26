@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Search, Film, Tv, Compass, Home, X, Sparkles, ChevronDown, Play, Star } from "lucide-react";
+import { Search, Film, Tv, Compass, Home, X, Sparkles, ChevronDown, Play, Star, Menu } from "lucide-react";
 import { IMAGE_BASE_URL } from "@/lib/tmdb";
 import Image from "next/image";
 export default function Header({
@@ -96,7 +96,7 @@ export default function Header({
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "glass-header shadow-2xl py-3" : "bg-gradient-to-b from-black/90 via-black/50 to-transparent py-5"
         }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-2">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-5">
         <div className="flex items-center justify-between gap-4">
 
           {/* Brand Logo */}
@@ -105,7 +105,7 @@ export default function Header({
             className="flex cursor-pointer group flex-shrink-0"
           >
             <div>
-              <Image src="/Logo.svg" alt="logo" width={230} height={100} />
+              <Image src="/Logo.svg" alt="logo" width={200} height={100} />
             </div>
           </div>
 
@@ -174,7 +174,7 @@ export default function Header({
           </nav>
 
           {/* Search Bar Container */}
-          <div ref={searchContainerRef} className="relative flex-1 max-w-sm">
+          <div ref={searchContainerRef} className="relative hidden md:block flex-1 max-w-sm">
             <div className="relative flex items-center">
               <Search className="absolute left-3.5 w-4 h-4 text-slate-400 pointer-events-none" />
               <input
@@ -263,13 +263,34 @@ export default function Header({
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2 rounded-xl bg-white/10 text-white hover:bg-white/20 transition-colors"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Sparkles className="w-6 h-6 text-red-500" />}
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6 text-slate-300" />}
           </button>
         </div>
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
           <div className="md:hidden mt-4 p-4 rounded-2xl bg-slate-900/95 backdrop-blur-2xl border border-slate-800 flex flex-col gap-3">
+
+            {/* Mobile Search Bar */}
+            <div className="relative flex items-center mb-2">
+              <Search className="absolute left-3.5 w-4 h-4 text-slate-400 pointer-events-none" />
+              <input
+                type="text"
+                placeholder="Search movies, TV shows..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-slate-900/80 border border-slate-700/80 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 text-white text-sm rounded-full pl-10 pr-10 py-2.5 transition-all outline-none placeholder:text-slate-500 shadow-inner"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-3 p-1 hover:bg-slate-800 rounded-full text-slate-400 hover:text-white"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+
             <div className="flex flex-col gap-1">
               {navItems.map((item) => {
                 const Icon = item.icon;

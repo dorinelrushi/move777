@@ -1,15 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import HeroBanner from "@/components/HeroBanner";
 import MovieGrid from "@/components/MovieGrid";
 import GenreFilter from "@/components/GenreFilter";
-import WatchModal from "@/components/WatchModal";
 import Footer from "@/components/Footer";
 import { Film, Tv, Sparkles, Flame, Star, Compass, Search } from "lucide-react";
 
 export default function Home() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("home"); // 'home', 'movies', 'tv', 'genre'
   const [selectedGenre, setSelectedGenre] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -33,8 +34,10 @@ export default function Home() {
   const [genrePage, setGenrePage] = useState(1);
   const [hasMoreGenre, setHasMoreGenre] = useState(true);
 
-  // Watch Modal State
-  const [selectedMovieForWatch, setSelectedMovieForWatch] = useState(null);
+  const handleMovieSelect = (movie) => {
+    const isTv = movie.first_air_date || movie.media_type === "tv";
+    router.push(`/movie/${movie.id}?type=${isTv ? 'tv' : 'movie'}`);
+  };
 
   // Fetch Genres & Initial Lists
   useEffect(() => {
@@ -176,7 +179,7 @@ export default function Home() {
         genres={genres}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
-        onSelectMovie={(movie) => setSelectedMovieForWatch(movie)}
+        onSelectMovie={handleMovieSelect}
       />
 
       {/* Main Page Body */}
@@ -199,7 +202,7 @@ export default function Home() {
             subtitle="Movies & TV Shows matching your query"
             movies={searchResults}
             isLoading={searchLoading}
-            onSelectMovie={(movie) => setSelectedMovieForWatch(movie)}
+            onSelectMovie={handleMovieSelect}
           />
         ) : selectedGenre || activeTab === "genre" ? (
           /* 2. GENRE FILTERED VIEW */
@@ -208,7 +211,7 @@ export default function Home() {
             subtitle={`Explore top rated ${selectedGenre?.name || ""} titles`}
             movies={genreResults}
             isLoading={genreLoading}
-            onSelectMovie={(movie) => setSelectedMovieForWatch(movie)}
+            onSelectMovie={handleMovieSelect}
             onLoadMore={handleLoadMoreGenre}
             hasMore={hasMoreGenre}
           />
@@ -220,21 +223,21 @@ export default function Home() {
               subtitle="Most watched films around the world right now"
               movies={popularMovies}
               isLoading={loading}
-              onSelectMovie={(movie) => setSelectedMovieForWatch(movie)}
+              onSelectMovie={handleMovieSelect}
             />
             <MovieGrid
               title="Top Rated Movies"
               subtitle="Critically acclaimed movies loved by fans"
               movies={topRatedMovies}
               isLoading={loading}
-              onSelectMovie={(movie) => setSelectedMovieForWatch(movie)}
+              onSelectMovie={handleMovieSelect}
             />
             <MovieGrid
               title="Upcoming Movies"
               subtitle="Films coming soon to theaters and streaming"
               movies={upcomingMovies}
               isLoading={loading}
-              onSelectMovie={(movie) => setSelectedMovieForWatch(movie)}
+              onSelectMovie={handleMovieSelect}
             />
           </div>
         ) : activeTab === "tv" ? (
@@ -245,14 +248,14 @@ export default function Home() {
               subtitle="Binge-worthy shows trending this week"
               movies={popularTV}
               isLoading={loading}
-              onSelectMovie={(movie) => setSelectedMovieForWatch(movie)}
+              onSelectMovie={handleMovieSelect}
             />
             <MovieGrid
               title="Top Rated TV Shows"
               subtitle="Highest rated television series of all time"
               movies={topRatedTV}
               isLoading={loading}
-              onSelectMovie={(movie) => setSelectedMovieForWatch(movie)}
+              onSelectMovie={handleMovieSelect}
             />
           </div>
         ) : (
@@ -263,7 +266,7 @@ export default function Home() {
             {heroMovie && (
               <HeroBanner
                 movie={heroMovie}
-                onSelectMovie={(movie) => setSelectedMovieForWatch(movie)}
+                onSelectMovie={handleMovieSelect}
               />
             )}
 
@@ -273,7 +276,7 @@ export default function Home() {
               subtitle="The hottest movies and series everyone is talking about"
               movies={trending}
               isLoading={loading}
-              onSelectMovie={(movie) => setSelectedMovieForWatch(movie)}
+              onSelectMovie={handleMovieSelect}
             />
 
             {/* Popular Movies */}
@@ -282,7 +285,7 @@ export default function Home() {
               subtitle="Blockbusters and fan favorites"
               movies={popularMovies}
               isLoading={loading}
-              onSelectMovie={(movie) => setSelectedMovieForWatch(movie)}
+              onSelectMovie={handleMovieSelect}
             />
 
             {/* Popular TV Shows */}
@@ -291,7 +294,7 @@ export default function Home() {
               subtitle="Top television shows to stream"
               movies={popularTV}
               isLoading={loading}
-              onSelectMovie={(movie) => setSelectedMovieForWatch(movie)}
+              onSelectMovie={handleMovieSelect}
             />
 
             {/* Top Rated Movies */}
@@ -300,7 +303,7 @@ export default function Home() {
               subtitle="Masterpieces with highest audience ratings"
               movies={topRatedMovies}
               isLoading={loading}
-              onSelectMovie={(movie) => setSelectedMovieForWatch(movie)}
+              onSelectMovie={handleMovieSelect}
             />
 
           </div>
@@ -308,14 +311,7 @@ export default function Home() {
 
       </main>
 
-      {/* Video Watch Player Modal */}
-      {selectedMovieForWatch && (
-        <WatchModal
-          movie={selectedMovieForWatch}
-          onClose={() => setSelectedMovieForWatch(null)}
-          onSelectMovie={(movie) => setSelectedMovieForWatch(movie)}
-        />
-      )}
+
 
       {/* Footer */}
       <Footer setActiveTab={setActiveTab} setSelectedGenre={setSelectedGenre} />

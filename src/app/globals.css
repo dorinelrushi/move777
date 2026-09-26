@@ -12,11 +12,12 @@
     --text-secondary: #9ca3af;
   }
 
-  body {
+  html, body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     overflow-x: hidden;
+    max-width: 100vw;
   }
 }
 

@@ -25,7 +25,7 @@ export default function GenreFilter({ genres, selectedGenre, onSelectGenre }) {
               onClick={() => onSelectGenre(genre)}
               className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                 isSelected
-                  ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-950/60 font-bold"
+                  ? "bg-gradient-to-r from-red-600 to-rose-700 text-white shadow-lg shadow-red-950/60 font-bold"
                   : "bg-[#151a26] text-slate-300 hover:bg-white/10 hover:text-white border border-white/5"
               }`}
             >

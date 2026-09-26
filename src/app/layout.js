@@ -32,6 +32,7 @@ export default function RootLayout({ children }) {
         {children}
 
         {/* --- SKRIPTET E REKLAMAVE SHTOHEN KËTU --- */}
+        <div className="w-full overflow-hidden flex flex-col items-center justify-center max-w-[100vw]">
 
         {/* 1. Skripti i parë */}
         <Script
@@ -78,7 +79,8 @@ export default function RootLayout({ children }) {
         />
 
         {/* Div-i i kërkuar për reklamën e fundit */}
-        <div id="container-db49430d3df8ec5834bce3b81912e3cb"></div>
+        <div id="container-db49430d3df8ec5834bce3b81912e3cb" className="max-w-full overflow-hidden"></div>
+        </div>
 
       </body>
     </html>

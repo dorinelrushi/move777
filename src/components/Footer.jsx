@@ -20,7 +20,7 @@ export default function Footer({ setActiveTab, setSelectedGenre }) {
             >
 
               <div>
-                <div className="mx-[-25px]">
+                <div className="mx-[-15px]">
                   <Image src="/Logo.svg" alt="logo" width={230} height={100} />
                 </div>
               </div>
