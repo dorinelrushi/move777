@@ -1,13 +1,14 @@
 "use client";
 
 import { Film, Heart, Globe, Share2, Send } from "lucide-react";
+import Image from "next/image";
 
 export default function Footer({ setActiveTab, setSelectedGenre }) {
   return (
     <footer className="mt-20 border-t border-white/10 bg-[#07090e] text-slate-400 text-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          
+
           {/* Brand Info */}
           <div className="space-y-4 md:col-span-1">
             <div
@@ -15,14 +16,14 @@ export default function Footer({ setActiveTab, setSelectedGenre }) {
                 setActiveTab("home");
                 setSelectedGenre(null);
               }}
-              className="flex items-center gap-2.5 cursor-pointer group"
+              className=""
             >
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-red-600 to-violet-600 flex items-center justify-center shadow-lg">
-                <Film className="w-5 h-5 text-white" />
+
+              <div>
+                <div className="mx-[-25px]">
+                  <Image src="/Logo.svg" alt="logo" width={230} height={100} />
+                </div>
               </div>
-              <span className="text-xl font-black tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-pink-500 to-purple-400">
-                CINEHUB
-              </span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
               Explore thousands of top-rated movies and popular TV series. Watch official trailers and high definition videos instantly.

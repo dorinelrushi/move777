@@ -7,7 +7,7 @@ import { BACKDROP_BASE_URL, IMAGE_BASE_URL } from "@/lib/tmdb";
 export default function WatchModal({ movie, onClose, onSelectMovie }) {
   const [details, setDetails] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [activeServer, setActiveServer] = useState("vidsrc_to"); // 'vidsrc_to', 'vidsrc_me', 'vidsrc_xyz', 'vidsrc_cc', 'embed2', 'trailer'
+  const [activeServer, setActiveServer] = useState("embed2"); // 'embed2', 'trailer'
   const [season, setSeason] = useState(1);
   const [episode, setEpisode] = useState(1);
 
@@ -43,30 +43,6 @@ export default function WatchModal({ movie, onClose, onSelectMovie }) {
     if (!tmdbId) return null;
 
     switch (activeServer) {
-      case "vidsrc_to":
-        // Official VidSrc.to endpoint: /embed/movie/{id} or /embed/tv/{id}/{s}/{e}
-        return mediaType === "movie"
-          ? `https://vidsrc.to/embed/movie/${tmdbId}`
-          : `https://vidsrc.to/embed/tv/${tmdbId}/${season}/${episode}`;
-
-      case "vidsrc_me":
-        // VidSrc.me endpoint with tmdb parameter
-        return mediaType === "movie"
-          ? `https://vidsrc.me/embed/movie?tmdb=${tmdbId}`
-          : `https://vidsrc.me/embed/tv?tmdb=${tmdbId}&season=${season}&episode=${episode}`;
-
-      case "vidsrc_xyz":
-        // VidSrc.xyz endpoint
-        return mediaType === "movie"
-          ? `https://vidsrc.xyz/embed/movie?tmdb=${tmdbId}`
-          : `https://vidsrc.xyz/embed/tv?tmdb=${tmdbId}&season=${season}&episode=${episode}`;
-
-      case "vidsrc_cc":
-        // VidSrc.cc endpoint
-        return mediaType === "movie"
-          ? `https://vidsrc.cc/v2/embed/movie/${tmdbId}`
-          : `https://vidsrc.cc/v2/embed/tv/${tmdbId}/${season}/${episode}`;
-
       case "embed2":
         // 2Embed endpoint
         return mediaType === "movie"
@@ -80,8 +56,8 @@ export default function WatchModal({ movie, onClose, onSelectMovie }) {
 
       default:
         return mediaType === "movie"
-          ? `https://vidsrc.to/embed/movie/${tmdbId}`
-          : `https://vidsrc.to/embed/tv/${tmdbId}/${season}/${episode}`;
+          ? `https://www.2embed.cc/embed/${tmdbId}`
+          : `https://www.2embed.cc/embedtv/${tmdbId}&s=${season}&e=${episode}`;
     }
   };
 
@@ -143,10 +119,10 @@ export default function WatchModal({ movie, onClose, onSelectMovie }) {
                     Player stream loading or unavailable. Switch server below:
                   </p>
                   <button
-                    onClick={() => setActiveServer("vidsrc_to")}
+                    onClick={() => setActiveServer("embed2")}
                     className="px-6 py-2.5 rounded-xl bg-red-600 text-white font-bold text-sm shadow-lg hover:bg-red-700 transition-colors cursor-pointer"
                   >
-                    Reload VidSrc Player
+                    Reload Player
                   </button>
                 </div>
               </div>
@@ -163,46 +139,6 @@ export default function WatchModal({ movie, onClose, onSelectMovie }) {
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
-              <button
-                onClick={() => setActiveServer("vidsrc_to")}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                  activeServer === "vidsrc_to"
-                    ? "bg-red-600 text-white shadow-md font-bold"
-                    : "bg-white/5 text-slate-300 hover:bg-white/10"
-                }`}
-              >
-                🍿 VidSrc.to
-              </button>
-              <button
-                onClick={() => setActiveServer("vidsrc_me")}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                  activeServer === "vidsrc_me"
-                    ? "bg-purple-600 text-white shadow-md font-bold"
-                    : "bg-white/5 text-slate-300 hover:bg-white/10"
-                }`}
-              >
-                🍿 VidSrc.me
-              </button>
-              <button
-                onClick={() => setActiveServer("vidsrc_xyz")}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                  activeServer === "vidsrc_xyz"
-                    ? "bg-indigo-600 text-white shadow-md font-bold"
-                    : "bg-white/5 text-slate-300 hover:bg-white/10"
-                }`}
-              >
-                ⚡ VidSrc.xyz
-              </button>
-              <button
-                onClick={() => setActiveServer("vidsrc_cc")}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                  activeServer === "vidsrc_cc"
-                    ? "bg-rose-600 text-white shadow-md font-bold"
-                    : "bg-white/5 text-slate-300 hover:bg-white/10"
-                }`}
-              >
-                🚀 VidSrc.cc
-              </button>
               <button
                 onClick={() => setActiveServer("embed2")}
                 className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${

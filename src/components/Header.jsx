@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Search, Film, Tv, Compass, Home, X, Sparkles, ChevronDown, Play, Star } from "lucide-react";
 import { IMAGE_BASE_URL } from "@/lib/tmdb";
-
+import Image from "next/image";
 export default function Header({
   activeTab,
   setActiveTab,
@@ -93,24 +93,20 @@ export default function Header({
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "glass-header shadow-2xl py-3" : "bg-gradient-to-b from-black/90 via-black/50 to-transparent py-5"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "glass-header shadow-2xl py-3" : "bg-gradient-to-b from-black/90 via-black/50 to-transparent py-5"
+        }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-2">
         <div className="flex items-center justify-between gap-4">
-          
+
           {/* Brand Logo */}
           <div
             onClick={() => handleNavClick("home")}
-            className="flex items-center gap-2.5 cursor-pointer group flex-shrink-0"
+            className="flex cursor-pointer group flex-shrink-0"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-red-600 to-violet-600 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
-              <Film className="w-6 h-6 text-white" />
+            <div>
+              <Image src="/Logo.svg" alt="logo" width={230} height={100} />
             </div>
-            <span className="text-2xl font-black tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-pink-500 to-purple-400">
-              CINEHUB
-            </span>
           </div>
 
           {/* Desktop Navigation */}
@@ -122,11 +118,10 @@ export default function Header({
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
-                    isActive
-                      ? "bg-gradient-to-r from-red-600 to-rose-700 text-white shadow-lg shadow-red-950/50"
-                      : "text-gray-300 hover:text-white hover:bg-white/10"
-                  }`}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${isActive
+                    ? "bg-gradient-to-r from-red-600 to-rose-700 text-white shadow-lg shadow-red-950/50"
+                    : "text-gray-300 hover:text-white hover:bg-white/10"
+                    }`}
                 >
                   <Icon className="w-4 h-4" />
                   {item.label}
@@ -138,11 +133,10 @@ export default function Header({
             <div className="relative">
               <button
                 onClick={() => setShowGenreMenu(!showGenreMenu)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
-                  selectedGenre || activeTab === "genre"
-                    ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-950/50"
-                    : "text-gray-300 hover:text-white hover:bg-white/10"
-                }`}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${selectedGenre || activeTab === "genre"
+                  ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-950/50"
+                  : "text-gray-300 hover:text-white hover:bg-white/10"
+                  }`}
               >
                 <Compass className="w-4 h-4" />
                 {selectedGenre ? selectedGenre.name : "Genre"}
@@ -166,11 +160,10 @@ export default function Header({
                     <button
                       key={g.id}
                       onClick={() => handleGenreSelect(g)}
-                      className={`text-left px-3 py-2 text-xs font-medium rounded-lg transition-colors truncate ${
-                        selectedGenre?.id === g.id
-                          ? "bg-purple-600 text-white font-bold"
-                          : "text-slate-300 hover:bg-white/10 hover:text-white"
-                      }`}
+                      className={`text-left px-3 py-2 text-xs font-medium rounded-lg transition-colors truncate ${selectedGenre?.id === g.id
+                        ? "bg-purple-600 text-white font-bold"
+                        : "text-slate-300 hover:bg-white/10 hover:text-white"
+                        }`}
                     >
                       {g.name}
                     </button>
@@ -285,11 +278,10 @@ export default function Header({
                   <button
                     key={item.id}
                     onClick={() => handleNavClick(item.id)}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${
-                      isActive
-                        ? "bg-red-600 text-white"
-                        : "text-slate-300 hover:bg-white/10"
-                    }`}
+                    className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${isActive
+                      ? "bg-red-600 text-white"
+                      : "text-slate-300 hover:bg-white/10"
+                      }`}
                   >
                     <Icon className="w-5 h-5" />
                     {item.label}
@@ -307,11 +299,10 @@ export default function Header({
                   <button
                     key={g.id}
                     onClick={() => handleGenreSelect(g)}
-                    className={`text-left px-3 py-2 text-xs rounded-lg truncate ${
-                      selectedGenre?.id === g.id
-                        ? "bg-purple-600 text-white font-bold"
-                        : "text-slate-300 bg-white/5 hover:bg-white/10"
-                    }`}
+                    className={`text-left px-3 py-2 text-xs rounded-lg truncate ${selectedGenre?.id === g.id
+                      ? "bg-purple-600 text-white font-bold"
+                      : "text-slate-300 bg-white/5 hover:bg-white/10"
+                      }`}
                   >
                     {g.name}
                   </button>
